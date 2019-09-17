@@ -1,5 +1,5 @@
 import CurrentQuote from "../components/CurrentQuote";
-// import "...static/css/rocks_tiny_flowers.jpg"; 
+import theme from '../pages/theme.js'; 
 
  
 class Index extends React.Component {
@@ -45,7 +45,14 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <div class="header">
+              
+              <link 
+                href="https://fonts.googleapis.com/css?family=Josefin+Slab&display=swap" 
+                rel="stylesheet"
+                key="google-font-josefin-slab" 
+                />
+              
+                <div className="header">
                 Welcome to your Quoting Generator!
                 </div>
                 <CurrentQuote quote={this.state.CurrentQuote}/>
@@ -57,29 +64,35 @@ class Index extends React.Component {
                     <button onClick={this.handleClick}> 
                         Load New Quote 
                     </button>                    
-                    <style jsx>{`
+                    <style global jsx>{`
+
+                      body {
+                        background-image: url("./../static/cattails.jpg");
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        height: 100%;
+                        width: 100%;
+                        color: ${theme.colors.text};
+                        font-family: 'Josefin Slab', serif;
+                        text-align: center 
+        
+                      }
+                      `}</style>
+                      <style global jsx>{`
+                        body {
+                          margin: 0;
+                          padding: 0;
+                          font-size: 18px;
+                          font-weight: 400;
+                          line-height: 1.8;
+                        }
+                        h1 {
+                          font-weight: 700;
+                        }
                         p {
-                        color: blue;
+                          margin-bottom: 10px;
                         }
-                        div {
-                        background: 
-                        }
-                        @media (max-width: 600px) {
-                        div {
-                            background: blue;
-                        }
-                        }
-                        `}</style>
-                        <style global jsx>{`
-                        
-                          body {
-                            @import url('https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco&display=swap');
-                            font-family: 'Sue Ellen Francisco', cursive;
-                            color: white;
-                            text-align: center;
-                            background: url(https://images.unsplash.com/photo-1422466839804-70381f09bea8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1863&q=80);
-                            background-size: 100vw 100vh;
-                          }
                         `}</style>
             
             </div>
