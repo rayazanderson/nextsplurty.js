@@ -1,14 +1,45 @@
 import CurrentQuote from "../components/CurrentQuote";
-import theme from '../pages/theme.js'; 
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  List,
+  Menu,
+  Segment,
+  Visibility,
+  Modal
+} from "semantic-ui-react";
+const FixedMenu = () => (
+  <Menu fixed="top" size="large">
+    <Container>
+      <Menu.Item as="a" active>Home</Menu.Item>
+      <Menu.Item as="a">Work</Menu.Item>
+      <Menu.Item as="a">Company</Menu.Item>
+      <Menu.Item as="a">Careers</Menu.Item>
+      <Menu.Menu position="right">
+        <Menu.Item className="item">
+          <Button as="a">Log in</Button>
+        </Menu.Item>
+        <Menu.Item>
+          <Button as="a" primary>Sign Up</Button>
+        </Menu.Item>
+      </Menu.Menu>
+    </Container>
+  </Menu>
+); 
+
 
  
 class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            CurrentQuote: "",
-            quotes: ["Hey now, you're an all-star", "Get your game on, get paid", "All that glitters is gold~"],
-            NewQuote: ""
+            currentQuote: "",
+            quotes: [],
+            newQuote: ""
         
         };
             this.handleClick = this.handleClick.bind(this);
@@ -24,6 +55,9 @@ class Index extends React.Component {
       }
 
       handleClick() {
+        console.log(this.state.quotes);
+        const newQuotesState = [...this.state.quotes];
+        newQuotesState.push(this.state.newQuotes);
         this.setState({
             CurrentQuote:this.state.quotes[Math.floor(Math.random() * this.state.quotes.length)]
         }) 
@@ -35,14 +69,15 @@ class Index extends React.Component {
         }) 
       }
 
-      handleChange(e) {
-        const {name,value}= e.target
+      handleChange = e =>  {
+        const {value}= e.target
         this.setState({
-            [name]:value
+            currentQuote:value
         })
       }
 
     render() {
+      console.log(this.state.currentQuote);
         return (
             <div>
               
@@ -51,31 +86,51 @@ class Index extends React.Component {
                 rel="stylesheet"
                 key="google-font-josefin-slab" 
                 />
-              
+                <link rel="stylesheet"
+                href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.11/semantic.min.css"
+                />
+              <Menu
+                style={{
+                  background: "none",
+                  border: "none",
+                  borderRadius: 0,
+                  boxShadow: "none",
+                  marginTop: "5em",
+                  transition: "box-shadow 0.6s ease, padding 0.6s ease"
+                }}
+              >
+                  <Menu.Item header>Welcome to your Quoting Generator!</Menu.Item>
+                  
+              </Menu>
+
+              <CurrentQuote quote={this.state.CurrentQuote}/>
+              <br />
                 <div className="header">
                 Welcome to your Quoting Generator!
                 </div>
-                <CurrentQuote quote={this.state.CurrentQuote}/>
-                    <input name="NewQuote" value={this.state.NewQuote} onChange={this.handleChange}/>
-                    <button onClick={this.handleAddQuote}> 
-                        Add Quote 
-                    </button> 
-                    <br />
+                    
+                    <Modal trigger={<button onClick={this.handleAddQuote}> 
+                        Add New Quote </button>}>
+                        
+                        <br />
+                      <input value={this.state.newQuote} onChange={this.handleChange}/>
                     <button onClick={this.handleClick}> 
                         Load New Quote 
-                    </button>                    
+                    </button>
+                    </Modal>
+                    
                     <style global jsx>{`
 
                       body {
-                        background-image: url("./../static/cattails.jpg");
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                        height: 100%;
-                        width: 100%;
-                        color: ${theme.colors.text};
-                        font-family: 'Josefin Slab', serif;
-                        text-align: center 
+                        background-image: url("./../static/cattails.jpg")   !important;
+                        background-size: auto            !important;
+                        background-repeat: no-repeat        !important;       
+                        background-position: center         !important;
+                        height: 100%                        !important;
+                        width: 100%                         !important;
+                        color: white         !important;
+                        font-family: 'Josefin Slab', serif     !important;
+                        text-align: center                    !important;
         
                       }
                       `}</style>
